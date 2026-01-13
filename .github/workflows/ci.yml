@@ -1,0 +1,44 @@
+name: CI – Build vector_blf
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:  # permet de déclencher manuellement
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1) récupère le code
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2) installe CMake + outils
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential
+
+    # 3) Build
+    - name: Configure & Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make -j$(nproc)
+
+    # 4) (Optionnel) Package
+    - name: Package
+      run: |
+        cd build
+        make package
+
+    # 5) (Optionnel) Upload artefacts
+    - name: Upload built artefact
+      uses: actions/upload-artifact@v3
+      with:
+        name: vector_blf-build
+        path: build/
