@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 cmake_minimum_required(VERSION 3.9)
+set(CMAKE_CXX_STANDARD 14)
 
 project(Vector_BLF
     VERSION 2.4.2
