@@ -7,6 +7,7 @@ include(GenerateExportHeader)
 
 # targets
 add_library(${PROJECT_NAME} SHARED "")
+target_compile_features(Vector_BLF PUBLIC cxx_std_11)
 
 # search paths
 include_directories(
